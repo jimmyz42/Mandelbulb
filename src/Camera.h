@@ -5,7 +5,7 @@
 
 #include <vecmath.h>
 #include <float.h>
-#include <cmath>
+#include <math.h>
 
 class Camera
 {
@@ -55,6 +55,25 @@ private:
     Vector3f _up;
     float _angle;
     Vector3f _horizontal;
+};
+
+class SphericalCamera: public Camera
+{
+public:
+    SphericalCamera(const Vector3f& center): _center(center) {}
+
+    virtual Ray generateRay(const Vector2f& point) override {
+        float phi = point[0] * 2 * M_PI, theta = point[1] * M_PI;
+        Vector3f dir(sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta));
+        return Ray(_center, dir);
+    }
+
+    virtual float getTMin() const override {
+        return 0.0f;
+    }
+
+private:
+    Vector3f _center;
 };
 
 #endif //CAMERA_H

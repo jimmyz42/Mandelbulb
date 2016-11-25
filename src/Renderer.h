@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "SceneParser.h"
 #include "ArgParser.h"
+#include "Fractal.h"
 
 class Hit;
 class Vector3f;
@@ -21,7 +21,7 @@ class Renderer
                       Hit &hit) const;
 
     ArgParser _args;
-    SceneParser _scene;
+    Fractal *_fractal;
 };
 
 #endif // RENDERER_H

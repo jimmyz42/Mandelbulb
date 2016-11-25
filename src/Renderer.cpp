@@ -8,14 +8,68 @@
 
 #include <limits>
 
+using namespace std;
 
 Renderer::Renderer(const ArgParser &args) :
-    _args(args),
-    _scene(args.input_file)
+    _args(args)
 {
+    _fractal = new Mandelbulb();
 }
 
-void
+void Renderer::Render() {
+    int w = _args.width;
+    int h = _args.height;
+    
+    Image image(w, h);
+
+    //PerspectiveCamera cam(Vector3f::FORWARD * 6, Vector3f::FORWARD, Vector3f::UP, 75);
+//    PerspectiveCamera cam(Vector3f(0, 5, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
+
+    SphericalCamera cam(Vector3f(0, 0.85, 0.2));
+    for (int y = 0; y < h; ++y) {
+        float ndcy = 2 * (y / (h - 1.0f)) - 1.0f;
+        for (int x = 0; x < w; ++x) {
+            float ndcx = 2 * (x / (w - 1.0f)) - 1.0f;
+            
+            //Ray r = cam.generateRay(Vector2f(ndcx, ndcy));
+            Ray r = cam.generateRay(Vector2f(1.0*x/w, 1.0*y/h));
+
+            Hit h;
+            Vector3f color = traceRay(r, cam.getTMin(), _args.bounces, h);
+
+            image.setPixel(x, y, color);
+        }
+    }
+    if (_args.output_file.size()) {
+        image.savePNG(_args.output_file);
+    }
+}
+
+Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const {
+//MAKE CONST LATER
+//int maxSteps = 200;
+//float minDist = 0.00001;
+
+int maxSteps = 150;
+float minDist = 0.000001;
+// LATER
+    float t = tmin;
+    int steps = 0;
+    for(; steps < maxSteps; steps++) {
+        float dist = _fractal->DE(r.getOrigin() + t * r.getDirection());
+//cout<<dist<<endl;
+//Vector3f pos = r.getOrigin() + t * r.getDirection();
+//cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<endl;
+        t += dist;
+        if(dist < minDist) break;
+    }
+//cout<<steps<<" "<<t<<endl;
+    return Vector3f(1.0 - 1.0*steps/maxSteps);
+//    return Vector3f(max(0.0f, min(1.0f, t-4)));
+}
+
+// Original code (commented)
+/*void
 Renderer::Render()
 {
     int w = _args.width;
@@ -65,8 +119,6 @@ Renderer::Render()
     }
 }
 
-
-
 Vector3f
 Renderer::traceRay(const Ray &r,
     float tmin,
@@ -106,5 +158,5 @@ Renderer::traceRay(const Ray &r,
     } else {
         return _scene.getBackgroundColor(r.getDirection());
     };
-}
+}*/
 
