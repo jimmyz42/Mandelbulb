@@ -7,13 +7,15 @@
 #include "VecUtils.h"
 
 #include <limits>
+#include <math.h>
 
 using namespace std;
 
 Renderer::Renderer(const ArgParser &args) :
     _args(args)
 {
-    _fractal = new Mandelbulb();
+//    _fractal = new Mandelbulb();
+    _fractal = new Mandelbox();
 }
 
 void Renderer::Render() {
@@ -22,17 +24,22 @@ void Renderer::Render() {
     
     Image image(w, h);
 
-    //PerspectiveCamera cam(Vector3f::FORWARD * 6, Vector3f::FORWARD, Vector3f::UP, 75);
-//    PerspectiveCamera cam(Vector3f(0, 5, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
+    PerspectiveCamera cam(Vector3f::FORWARD * 20, Vector3f::FORWARD, Vector3f::UP, 75);
+    //PerspectiveCamera cam(Vector3f(0.05, 0.84, 0.2), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
 
-    SphericalCamera cam(Vector3f(0, 0.85, 0.2));
+    //SphericalCamera cam(Vector3f(10, 0, 0), M_PI/2);
+    //SphericalCamera cam(Vector3f(0.17, 0.84, 0.2), M_PI/2);
+//PARAM
+//sz = 2 for normal NDC coords
+float sz = 0.1;
+//END
     for (int y = 0; y < h; ++y) {
-        float ndcy = 2 * (y / (h - 1.0f)) - 1.0f;
+        float ndcy = sz * ((y / (h - 1.0f)) - 0.5f);
         for (int x = 0; x < w; ++x) {
-            float ndcx = 2 * (x / (w - 1.0f)) - 1.0f;
+            float ndcx = sz * ((x / (w - 1.0f)) - 0.5f);
             
-            //Ray r = cam.generateRay(Vector2f(ndcx, ndcy));
-            Ray r = cam.generateRay(Vector2f(1.0*x/w, 1.0*y/h));
+            Ray r = cam.generateRay(Vector2f(ndcx, ndcy));
+            //Ray r = cam.generateRay(Vector2f(1.0*x/w, 1.0*y/h));
 
             Hit h;
             Vector3f color = traceRay(r, cam.getTMin(), _args.bounces, h);
@@ -47,14 +54,19 @@ void Renderer::Render() {
 
 Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const {
 //MAKE CONST LATER
-//int maxSteps = 200;
-//float minDist = 0.00001;
+//int maxSteps = 150;
+//float minDist = 1e-9;
 
+//spherical
 int maxSteps = 150;
-float minDist = 0.000001;
+float minDist = 1e-8;
+
+//int maxSteps = 120;
+//float minDist = 1e-9;
 // LATER
     float t = tmin;
     int steps = 0;
+    Vector3f color;
     for(; steps < maxSteps; steps++) {
         float dist = _fractal->DE(r.getOrigin() + t * r.getDirection());
 //cout<<dist<<endl;
@@ -63,9 +75,9 @@ float minDist = 0.000001;
         t += dist;
         if(dist < minDist) break;
     }
+
 //cout<<steps<<" "<<t<<endl;
     return Vector3f(1.0 - 1.0*steps/maxSteps);
-//    return Vector3f(max(0.0f, min(1.0f, t-4)));
 }
 
 // Original code (commented)

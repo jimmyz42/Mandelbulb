@@ -60,12 +60,14 @@ private:
 class SphericalCamera: public Camera
 {
 public:
-    SphericalCamera(const Vector3f& center): _center(center) {}
+    SphericalCamera(const Vector3f& center, float rotX = 0, float rotY = 0, float rotZ = 0): _center(center) {
+        _rotation = Matrix3f::rotateX(rotX) * Matrix3f::rotateY(rotY) * Matrix3f::rotateZ(rotZ);
+    }
 
     virtual Ray generateRay(const Vector2f& point) override {
         float phi = point[0] * 2 * M_PI, theta = point[1] * M_PI;
         Vector3f dir(sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta));
-        return Ray(_center, dir);
+        return Ray(_center, _rotation * dir);
     }
 
     virtual float getTMin() const override {
@@ -74,6 +76,7 @@ public:
 
 private:
     Vector3f _center;
+    Matrix3f _rotation;
 };
 
 #endif //CAMERA_H
