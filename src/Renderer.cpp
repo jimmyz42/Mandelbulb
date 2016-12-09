@@ -24,14 +24,15 @@ void Renderer::Render() {
     
     Image image(w, h);
 
-    PerspectiveCamera cam(Vector3f::FORWARD * 20, Vector3f::FORWARD, Vector3f::UP, 75);
+    //PerspectiveCamera cam(Vector3f::FORWARD * 6, Vector3f::FORWARD, Vector3f::UP, 75);
+    PerspectiveCamera cam(Vector3f(0, 5, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
     //PerspectiveCamera cam(Vector3f(0.05, 0.84, 0.2), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
 
     //SphericalCamera cam(Vector3f(10, 0, 0), M_PI/2);
     //SphericalCamera cam(Vector3f(0.17, 0.84, 0.2), M_PI/2);
 //PARAM
 //sz = 2 for normal NDC coords
-float sz = 0.1;
+float sz = 2;
 //END
     for (int y = 0; y < h; ++y) {
         float ndcy = sz * ((y / (h - 1.0f)) - 0.5f);
@@ -59,7 +60,7 @@ Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const
 
 //spherical
 int maxSteps = 150;
-float minDist = 1e-8;
+float minDist = 1e-5;
 
 //int maxSteps = 120;
 //float minDist = 1e-9;
