@@ -14,8 +14,9 @@ using namespace std;
 Renderer::Renderer(const ArgParser &args) :
     _args(args)
 {
-//    _fractal = new Mandelbulb();
-    _fractal = new Mandelbox();
+    _fractal = new Mandelbulb();
+//    _fractal = new Mandelbox();
+    _lights.push_back(new PointLight(Vector3f(0, 1, 0), Vector3f(1), 1));
 }
 
 void Renderer::Render() {
@@ -55,7 +56,7 @@ float sz = 2;
 
 Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const {
 //MAKE CONST LATER
-//int maxSteps = 150;
+//int maxSteps = 120;
 //float minDist = 1e-9;
 
 //spherical
@@ -68,10 +69,13 @@ float minDist = 1e-5;
     float t = tmin;
     int steps = 0;
     Vector3f color;
+//cout<<"********"<<endl;
     for(; steps < maxSteps; steps++) {
         float dist = _fractal->DE(r.getOrigin() + t * r.getDirection());
+//        float dist = _fractal->DE(r.pointAtParameter(t));
 //cout<<dist<<endl;
 //Vector3f pos = r.getOrigin() + t * r.getDirection();
+//cout<<pos.abs()<<endl;
 //cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<endl;
         t += dist;
         if(dist < minDist) break;
@@ -79,6 +83,39 @@ float minDist = 1e-5;
 
 //cout<<steps<<" "<<t<<endl;
     return Vector3f(1.0 - 1.0*steps/maxSteps);
+
+    if (t < 1.0e6) {
+        Vector3f color(0);
+        //Vector3f color = _scene.getAmbientLight() * h.material->getDiffuseColor();
+        Vector3f tolight(0), intensity(0);
+        float distToLight;
+        Vector3f inter = r.pointAtParameter(t);
+
+        for(int i=0; i<_lights.size(); i++) {
+            _lights[i]->getIllumination(inter, tolight, intensity, distToLight);
+            /*if(_args.shadows) {
+                Ray shadowRay(inter, tolight.normalized());
+                Hit shadowHit;
+                bool hasHit = _scene.getGroup()->intersect(shadowRay, 0.01, shadowHit);
+
+                if(!hasHit || shadowHit.t >= distToLight) {
+                    color += h.material->shade(r, h, tolight, intensity);
+                }
+            } else {*/
+                color += _fractal->shade(r, inter, tolight, intensity);
+            //}
+        }
+        /*if(bounces > 0) {
+            Vector3f newDir = r.getDirection() - 2 * Vector3f::dot(r.getDirection(), h.normal) * h.normal;
+            Ray newRay(inter, newDir.normalized());
+            Hit newHit;
+            color += h.material->getSpecularColor() * traceRay(newRay, 0.01, bounces-1, newHit);
+        }*/
+        return color;
+    } else {
+        return Vector3f::ZERO;
+        //return _scene.getBackgroundColor(r.getDirection());
+    };
 }
 
 // Original code (commented)

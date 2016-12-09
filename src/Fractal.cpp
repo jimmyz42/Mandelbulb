@@ -1,34 +1,42 @@
 #include "Fractal.h"
 
-Vector3f Fractal::getNormal(Vector3f pos, float eps = 1.0e-6) const {
+inline float Fractal::clamp(const Vector3f& L, const Vector3f& N) const {
+    return fmax(Vector3f::dot(L, N), 0);
+}
+
+inline Vector3f Fractal::getNormal(const Vector3f& pos, float eps = 1.0e-6) const {
     Vector3f epsX(eps, 0, 0), epsY(0, eps, 0), epsZ(0, 0, eps);
     Vector3f normal(DE(pos+epsX)-DE(pos-epsX), DE(pos+epsY)-DE(pos-epsY), DE(pos+epsZ)-DE(pos-epsZ));
     normal.normalize();
     return normal;
 }
 
-// TODO edit this to not use rays/hits
-/*Vector3f Fractal::shade(const Ray &ray,
-    const Hit &hit,
-    const Vector3f &dirToLight,
-    const Vector3f &lightIntensity) const
+Vector3f Fractal::shade(const Ray& ray, const Vector3f& pos, const Vector3f &dirToLight, const Vector3f &lightIntensity) const
 {
-    // implement Diffuse and Specular phong terms
-    Vector3f diffuse = clamp(dirToLight, hit.normal) * lightIntensity * hit.material->_diffuseColor;
-    Vector3f reye = ray.getDirection() - 2 * Vector3f::dot(ray.getDirection(), hit.normal) * hit.normal;
-    Vector3f specular = pow(clamp(dirToLight, reye), hit.material->_shininess) * lightIntensity * hit.material->_specularColor;
+    Vector3f normal = getNormal(pos);
+    Vector3f diffuseColor = getDiffuseColor(pos);
+    Vector3f specularColor = getSpecularColor(pos);
+    float shininess = getShininess(pos);
+
+    Vector3f diffuse = clamp(dirToLight, normal) * lightIntensity * diffuseColor;
+    Vector3f reye = ray.getDirection() - 2 * Vector3f::dot(ray.getDirection(), normal) * normal;
+    Vector3f specular = pow(clamp(dirToLight, reye), shininess) * lightIntensity * specularColor;
     return diffuse + specular;
-}*/
+}
 
 //TODO implement these in subclass
 // Default implementation is just aquamarine diffuse, white specular
 
-Vector3f Fractal::getDiffuseColor() const {
+inline Vector3f Fractal::getDiffuseColor(const Vector3f& pos) const {
     return Vector3f(0.5, 1, 0.83);
 }
 
-Vector3f Fractal::getSpecularColor() const {
+inline Vector3f Fractal::getSpecularColor(const Vector3f& pos) const {
     return Vector3f(1, 1, 1);
+}
+
+inline float Fractal::getShininess(const Vector3f& pos) const {
+    return 0.1f;
 }
 
 float Mandelbulb::DE(Vector3f pos) const {
@@ -48,6 +56,7 @@ float Mandelbulb::DE(Vector3f pos) const {
 
         z = zmag * Vector3f(sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)) + pos;
     }
+    
     return 0.5 * log(r) * r / dr;
 }
 

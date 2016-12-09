@@ -2,9 +2,11 @@
 #define RENDERER_H
 
 #include <string>
+#include <vector>
 
 #include "ArgParser.h"
 #include "Fractal.h"
+#include "Light.h"
 
 class Hit;
 class Vector3f;
@@ -22,6 +24,8 @@ class Renderer
 
     ArgParser _args;
     Fractal *_fractal;
+    std::vector<Light*> _lights;
+//TODO: background image SphereMap, ambient light
 };
 
 #endif // RENDERER_H
