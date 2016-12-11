@@ -16,7 +16,10 @@ Renderer::Renderer(const ArgParser &args) :
 {
     _fractal = new Mandelbulb();
 //    _fractal = new Mandelbox();
-    _lights.push_back(new PointLight(Vector3f(0, 1, 0), Vector3f(1), 1));
+    _lights.push_back(new PointLight(Vector3f(1, 1, 1.5), 0.5*Vector3f(1, 0.5, 0), 0.5));
+    _lights.push_back(new PointLight(Vector3f(1, 1, -2), 0.5*Vector3f(1, 0.5, 0), 0.5));
+//    _lights.push_back(new PointLight(Vector3f(, -1.5), Vector3f(1, 0.5, 0), 0.5));
+    _lights.push_back(new DirectionalLight(Vector3f(0, -1, -1), Vector3f(0.1, 0.2, 0.4)));
 }
 
 void Renderer::Render() {
@@ -26,7 +29,9 @@ void Renderer::Render() {
     Image image(w, h);
 
     //PerspectiveCamera cam(Vector3f::FORWARD * 6, Vector3f::FORWARD, Vector3f::UP, 75);
-    PerspectiveCamera cam(Vector3f(0, 5, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
+//    PerspectiveCamera cam(Vector3f(0, 5, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
+    PerspectiveCamera cam(Vector3f(5/1.414, 5/1.414, 0), Vector3f(1, 1, 0), Vector3f(0, 0, 1), 75); //mandelgold
+//    PerspectiveCamera cam(Vector3f(5/1.414, 5/1.414, 3), Vector3f(1, 1, 0), Vector3f(0, 0, 1), 75);
     //PerspectiveCamera cam(Vector3f(0.05, 0.84, 0.2), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
 
     //SphericalCamera cam(Vector3f(10, 0, 0), M_PI/2);
@@ -56,12 +61,21 @@ float sz = 2;
 
 Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const {
 //MAKE CONST LATER
-//int maxSteps = 120;
-//float minDist = 1e-9;
+int maxSteps = 120;
+float minDist = 1e-6;
+
+//paper vera
+maxSteps = 60;
+minDist = 0.0055;
+float maxT = 20;
+
+//shading
+//int maxSteps = 30;
+//float minDist = 1.0e-4;
 
 //spherical
-int maxSteps = 150;
-float minDist = 1e-5;
+//int maxSteps = 150;
+//float minDist = 1e-5;
 
 //int maxSteps = 120;
 //float minDist = 1e-9;
@@ -78,13 +92,15 @@ float minDist = 1e-5;
 //cout<<pos.abs()<<endl;
 //cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<endl;
         t += dist;
-        if(dist < minDist) break;
+        //if(dist < minDist) break;
+        if(dist < minDist || t > maxT) break;
     }
 
 //cout<<steps<<" "<<t<<endl;
-    return Vector3f(1.0 - 1.0*steps/maxSteps);
+    //return Vector3f(1.0 - 1.0*steps/maxSteps);
+    //return Vector3f(1.0 - 1.0*steps/maxSteps) * _fractal->getDiffuseColor(r.pointAtParameter(t));
 
-    if (t < 1.0e6) {
+    if (t < maxT) {
         Vector3f color(0);
         //Vector3f color = _scene.getAmbientLight() * h.material->getDiffuseColor();
         Vector3f tolight(0), intensity(0);
@@ -105,12 +121,13 @@ float minDist = 1e-5;
                 color += _fractal->shade(r, inter, tolight, intensity);
             //}
         }
-        /*if(bounces > 0) {
-            Vector3f newDir = r.getDirection() - 2 * Vector3f::dot(r.getDirection(), h.normal) * h.normal;
+        if(bounces > 0) {
+            Vector3f normal = _fractal->getNormal(inter);
+            Vector3f newDir = r.getDirection() - 2 * Vector3f::dot(r.getDirection(), normal) * normal;
             Ray newRay(inter, newDir.normalized());
             Hit newHit;
-            color += h.material->getSpecularColor() * traceRay(newRay, 0.01, bounces-1, newHit);
-        }*/
+            color += _fractal->getSpecularColor(inter) * traceRay(newRay, 0.01, bounces-1, newHit);
+        }
         return color;
     } else {
         return Vector3f::ZERO;

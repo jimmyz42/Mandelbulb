@@ -4,7 +4,7 @@ inline float Fractal::clamp(const Vector3f& L, const Vector3f& N) const {
     return fmax(Vector3f::dot(L, N), 0);
 }
 
-inline Vector3f Fractal::getNormal(const Vector3f& pos, float eps = 1.0e-6) const {
+inline Vector3f Fractal::getNormal(const Vector3f& pos, float eps) const {
     Vector3f epsX(eps, 0, 0), epsY(0, eps, 0), epsZ(0, 0, eps);
     Vector3f normal(DE(pos+epsX)-DE(pos-epsX), DE(pos+epsY)-DE(pos-epsY), DE(pos+epsZ)-DE(pos-epsZ));
     normal.normalize();
@@ -21,6 +21,7 @@ Vector3f Fractal::shade(const Ray& ray, const Vector3f& pos, const Vector3f &dir
     Vector3f diffuse = clamp(dirToLight, normal) * lightIntensity * diffuseColor;
     Vector3f reye = ray.getDirection() - 2 * Vector3f::dot(ray.getDirection(), normal) * normal;
     Vector3f specular = pow(clamp(dirToLight, reye), shininess) * lightIntensity * specularColor;
+//    return diffuse;
     return diffuse + specular;
 }
 
@@ -36,7 +37,7 @@ inline Vector3f Fractal::getSpecularColor(const Vector3f& pos) const {
 }
 
 inline float Fractal::getShininess(const Vector3f& pos) const {
-    return 0.1f;
+    return 0.5f;
 }
 
 float Mandelbulb::DE(Vector3f pos) const {
