@@ -21,13 +21,17 @@ private:
 class Mandelbulb: public Fractal {
 public:
     Mandelbulb(int maxIters = 6 /* 20 */, float escapeRadius = 4.0, float bulbPower = 8):
-        _maxIters(maxIters), _escapeRadius(escapeRadius), _bulbPower(bulbPower) {}
+        _maxIters(maxIters), _escapeRadius(escapeRadius), _bulbPower(bulbPower),
+        _mInv(Matrix3f::identity()), _mDet(1.0) {}
     virtual float DE(Vector3f pos) const override;
+    void setTransform(const Matrix3f& m);
 
 private:
     int _maxIters;
     float _escapeRadius;
     float _bulbPower;
+    Matrix3f _mInv;
+    float _mDet;
 };
 
 class Mandelbox: public Fractal {

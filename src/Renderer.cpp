@@ -20,6 +20,7 @@ Renderer::Renderer(const ArgParser &args) :
     _lights.push_back(new PointLight(Vector3f(1, 1, -2), 0.5*Vector3f(1, 0.5, 0), 0.5));
 //    _lights.push_back(new PointLight(Vector3f(, -1.5), Vector3f(1, 0.5, 0), 0.5));
     _lights.push_back(new DirectionalLight(Vector3f(0, -1, -1), Vector3f(0.1, 0.2, 0.4)));
+    _background = Image::loadPNG("../bg.png");
 }
 
 void Renderer::Render() {
@@ -40,6 +41,10 @@ void Renderer::Render() {
 //sz = 2 for normal NDC coords
 float sz = 2;
 //END
+
+    //set rotation
+    ((Mandelbulb*)_fractal)->setTransform(Matrix3f::rotateZ(M_PI/6)*Matrix3f::rotateX(M_PI/3)*0.9);
+
     for (int y = 0; y < h; ++y) {
         float ndcy = sz * ((y / (h - 1.0f)) - 0.5f);
         for (int x = 0; x < w; ++x) {
@@ -131,7 +136,14 @@ float maxT = 20;
         return color;
     } else {
         return Vector3f::ZERO;
-        //return _scene.getBackgroundColor(r.getDirection());
+        /*Vector3f dir = r.getDirection();
+        float theta = acos(dir.z()/dir.abs()); // [0, pi]
+        float phi = atan2(dir.y(), dir.x()) + M_PI; // [0, 2pi]
+        int px = (int) (phi / (2 * M_PI) * _background.getWidth());
+        px = max(0, min(px, _background.getWidth()-1));
+        int py = (int) (theta / M_PI * _background.getHeight());
+        py = max(0, min(py, _background.getHeight()-1));
+        return _background.getPixel(px, py);*/
     };
 }
 

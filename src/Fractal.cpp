@@ -40,7 +40,13 @@ inline float Fractal::getShininess(const Vector3f& pos) const {
     return 0.5f;
 }
 
+void Mandelbulb::setTransform(const Matrix3f& m) {
+    _mInv = m.inverse(NULL, 1.0e-9);
+    _mDet = m.determinant();
+}
+
 float Mandelbulb::DE(Vector3f pos) const {
+    pos = _mInv * pos; // _mInv for transform
     Vector3f z = pos;
     float dr = 1.0, r = 0.0;
     for(int i=0; i < _maxIters; i++) {
@@ -58,7 +64,7 @@ float Mandelbulb::DE(Vector3f pos) const {
         z = zmag * Vector3f(sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)) + pos;
     }
     
-    return 0.5 * log(r) * r / dr;
+    return 0.5 * log(r) * r / dr * _mDet; // _mDet from transform
 }
 
 float Mandelbox::DE(Vector3f pos) const {

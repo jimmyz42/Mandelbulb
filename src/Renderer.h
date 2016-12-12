@@ -7,6 +7,7 @@
 #include "ArgParser.h"
 #include "Fractal.h"
 #include "Light.h"
+#include "Image.h"
 
 class Hit;
 class Vector3f;
@@ -25,7 +26,7 @@ class Renderer
     ArgParser _args;
     Fractal *_fractal;
     std::vector<Light*> _lights;
-//TODO: background image SphereMap, ambient light
+    Image _background;
 };
 
 #endif // RENDERER_H
