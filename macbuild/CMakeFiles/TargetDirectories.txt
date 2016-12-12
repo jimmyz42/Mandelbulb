@@ -1,0 +1,2 @@
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/macbuild/CMakeFiles/a4.dir
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/macbuild/vecmath/CMakeFiles/vecmath.dir

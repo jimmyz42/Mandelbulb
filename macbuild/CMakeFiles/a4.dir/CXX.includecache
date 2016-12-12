@@ -1,0 +1,382 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../vecmath/include/Matrix2f.h
+cstdio
+-
+
+../vecmath/include/Matrix3f.h
+cstdio
+-
+
+../vecmath/include/Matrix4f.h
+cstdio
+-
+
+../vecmath/include/Quat4f.h
+Matrix3f.h
+../vecmath/include/Matrix3f.h
+
+../vecmath/include/Vector2f.h
+cmath
+-
+
+../vecmath/include/Vector3f.h
+
+../vecmath/include/Vector4f.h
+
+../vecmath/include/vecmath.h
+Matrix2f.h
+../vecmath/include/Matrix2f.h
+Matrix3f.h
+../vecmath/include/Matrix3f.h
+Matrix4f.h
+../vecmath/include/Matrix4f.h
+Quat4f.h
+../vecmath/include/Quat4f.h
+Vector2f.h
+../vecmath/include/Vector2f.h
+Vector3f.h
+../vecmath/include/Vector3f.h
+Vector4f.h
+../vecmath/include/Vector4f.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ArgParser.cpp
+ArgParser.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ArgParser.h
+cstring
+-
+cassert
+-
+cstdio
+-
+cstdlib
+-
+iostream
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ArgParser.h
+string
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Camera.cpp
+Camera.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Camera.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Camera.h
+Ray.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+vecmath.h
+-
+float.h
+-
+math.h
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/CubeMap.cpp
+CubeMap.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/CubeMap.h
+cmath
+-
+string
+-
+iostream
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/CubeMap.h
+Image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.h
+Vector3f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector3f.h
+string
+-
+Vector3f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector3f.h
+iostream
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Fractal.cpp
+Fractal.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Fractal.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Fractal.h
+vecmath.h
+-
+cmath
+-
+Ray.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.cpp
+cstdlib
+-
+cstdio
+-
+cstring
+-
+cassert
+-
+Image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.h
+stb_image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image.h
+stb_image_write.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image_write.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.h
+cassert
+-
+string
+-
+vector
+-
+vecmath.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/vecmath.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.cpp
+Light.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.h
+Vector3f.h
+-
+Object3D.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.h
+limits
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Material.cpp
+Material.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Material.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Material.h
+cassert
+-
+cmath
+-
+vecmath.h
+-
+Ray.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+Image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.h
+Vector3f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector3f.h
+string
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Mesh.cpp
+Mesh.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Mesh.h
+fstream
+-
+iostream
+-
+algorithm
+-
+cstdlib
+-
+utility
+-
+sstream
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Mesh.h
+Object3D.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.h
+ObjTriangle.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ObjTriangle.h
+Octree.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Octree.h
+Vector2f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector2f.h
+Vector3f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector3f.h
+vector
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ObjTriangle.h
+array
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.cpp
+Object3D.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.h
+Ray.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+Material.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Material.h
+string
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Octree.cpp
+Ray.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+Vector3f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector3f.h
+Mesh.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Mesh.h
+Octree.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Octree.h
+vector
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Octree.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+Vector3f.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Vector3f.h
+cassert
+-
+limits
+-
+iostream
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Renderer.cpp
+Renderer.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Renderer.h
+ArgParser.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ArgParser.h
+Camera.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Camera.h
+Image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.h
+Ray.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Ray.h
+VecUtils.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/VecUtils.h
+limits
+-
+math.h
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Renderer.h
+string
+-
+vector
+-
+ArgParser.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ArgParser.h
+Fractal.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Fractal.h
+Light.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/SceneParser.cpp
+cstdio
+-
+cstring
+-
+cstdlib
+-
+cmath
+-
+SceneParser.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/SceneParser.h
+Camera.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Camera.h
+Light.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.h
+Material.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Material.h
+Object3D.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/SceneParser.h
+cassert
+-
+vector
+-
+vecmath.h
+-
+SceneParser.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/SceneParser.h
+Camera.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Camera.h
+CubeMap.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/CubeMap.h
+Light.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.h
+Material.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Material.h
+Object3D.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Object3D.h
+Mesh.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Mesh.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/VecUtils.cpp
+VecUtils.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/VecUtils.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/VecUtils.h
+vecmath.h
+-
+algorithm
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/main.cpp
+cstring
+-
+iostream
+-
+ArgParser.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/ArgParser.h
+Renderer.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Renderer.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb.cpp
+stb_image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image.h
+stb_image_write.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image_write.h
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image.h
+stb_image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image.h
+stdio.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/stb_image_write.h
+stdio.h
+-
+stdarg.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+assert.h
+-
+
