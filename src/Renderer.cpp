@@ -10,11 +10,12 @@
 #include <math.h>
 
 using namespace std;
+const double PI = 3.1415926;
 
 Renderer::Renderer(const ArgParser &args) :
     _args(args)
 {
-    _fractal = new Mandelbulb();
+    _fractal = new Mandelbulb(6, 4, 6);
 //    _fractal = new Mandelbox();
     _lights.push_back(new PointLight(Vector3f(1, 1, 1.5), 0.5*Vector3f(1, 0.5, 0), 0.5));
     _lights.push_back(new PointLight(Vector3f(1, 1, -2), 0.5*Vector3f(1, 0.5, 0), 0.5));
@@ -23,7 +24,7 @@ Renderer::Renderer(const ArgParser &args) :
     _background = Image::loadPNG("../bg.png");
 }
 
-void Renderer::Render() {
+void Renderer::Render(double percentAngle) {
     int w = _args.width;
     int h = _args.height;
     
@@ -31,7 +32,7 @@ void Renderer::Render() {
 
     //PerspectiveCamera cam(Vector3f::FORWARD * 6, Vector3f::FORWARD, Vector3f::UP, 75);
 //    PerspectiveCamera cam(Vector3f(0, 5, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
-    PerspectiveCamera cam(Vector3f(5/1.414, 5/1.414, 0), Vector3f(1, 1, 0), Vector3f(0, 0, 1), 75); //mandelgold
+    PerspectiveCamera cam(Vector3f(5/1.414, 5/1.414, 0), Vector3f(1, 1, 0), Vector3f(0, 0, 1), percentAngle*2*PI); //mandelgold
 //    PerspectiveCamera cam(Vector3f(5/1.414, 5/1.414, 3), Vector3f(1, 1, 0), Vector3f(0, 0, 1), 75);
     //PerspectiveCamera cam(Vector3f(0.05, 0.84, 0.2), Vector3f(0, 1, 0), Vector3f(0, 0, 1), 75);
 
@@ -59,9 +60,7 @@ float sz = 2;
             image.setPixel(x, y, color);
         }
     }
-    if (_args.output_file.size()) {
-        image.savePNG(_args.output_file);
-    }
+    image.savePNG("../outputs/angle/" + to_string(percentAngle) + ".png");
 }
 
 Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const {

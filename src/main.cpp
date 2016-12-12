@@ -26,6 +26,10 @@ main(int argc, const char *argv[])
 
     ArgParser argsParser(argc, argv);
     Renderer renderer(argsParser);
-    renderer.Render();
+    for (int i = 0; i < 101; i++) {
+        float percentAngle = 0.9 + i * 0.001;
+        renderer.Render(percentAngle);
+    }
+    // renderer.Render(.95);
     return 0;
 }
