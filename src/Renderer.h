@@ -18,7 +18,7 @@ class Renderer
   public:
     // Instantiates a renderer for the given scene.
     Renderer(const ArgParser &args);
-    void Render(double percentAngle);
+    void Render(double percentAngle, double rotateAngle);
   private:
     Vector3f traceRay(const Ray &ray, float tmin, int bounces, 
                       Hit &hit) const;

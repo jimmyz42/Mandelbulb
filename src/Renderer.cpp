@@ -21,10 +21,10 @@ Renderer::Renderer(const ArgParser &args) :
     _lights.push_back(new PointLight(Vector3f(1, 1, -2), 0.5*Vector3f(1, 0.5, 0), 0.5));
 //    _lights.push_back(new PointLight(Vector3f(, -1.5), Vector3f(1, 0.5, 0), 0.5));
     _lights.push_back(new DirectionalLight(Vector3f(0, -1, -1), Vector3f(0.1, 0.2, 0.4)));
-    _background = Image::loadPNG("../bg.png");
+    // _background = Image::loadPNG("../bg.png");
 }
 
-void Renderer::Render(double percentAngle) {
+void Renderer::Render(double percentAngle, double rotateAngle=0) {
     int w = _args.width;
     int h = _args.height;
     
@@ -44,7 +44,7 @@ float sz = 2;
 //END
 
     //set rotation
-    ((Mandelbulb*)_fractal)->setTransform(Matrix3f::rotateZ(M_PI/6)*Matrix3f::rotateX(M_PI/3)*0.9);
+    ((Mandelbulb*)_fractal)->setTransform(Matrix3f::rotateZ(rotateAngle)*Matrix3f::rotateX(M_PI/3)*0.9);
 
     for (int y = 0; y < h; ++y) {
         float ndcy = sz * ((y / (h - 1.0f)) - 0.5f);
@@ -60,7 +60,7 @@ float sz = 2;
             image.setPixel(x, y, color);
         }
     }
-    image.savePNG("../outputs/angle/" + to_string(percentAngle) + ".png");
+    image.savePNG("../outputs/rotateZ/" + to_string(rotateAngle) + ".png");
 }
 
 Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const {
@@ -72,6 +72,12 @@ float minDist = 1e-6;
 maxSteps = 60;
 minDist = 0.0055;
 float maxT = 20;
+
+// more detail
+// minDist = 0.005;
+
+// rotate
+minDist = 0.006;
 
 //shading
 //int maxSteps = 30;

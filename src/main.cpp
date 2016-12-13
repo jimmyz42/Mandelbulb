@@ -4,6 +4,8 @@
 #include "ArgParser.h"
 #include "Renderer.h"
 
+const double PI = 3.1415926;
+
 int
 main(int argc, const char *argv[])
 {
@@ -26,10 +28,18 @@ main(int argc, const char *argv[])
 
     ArgParser argsParser(argc, argv);
     Renderer renderer(argsParser);
-    for (int i = 0; i < 101; i++) {
-        float percentAngle = 0.9 + i * 0.001;
-        renderer.Render(percentAngle);
+    // Render at different angles for zooming
+    // for (int i = 0; i < 11; i++) {
+    //     float percentAngle = 0.93 + i * 0.001;
+    //     renderer.Render(percentAngle);
+    // }
+
+    // Render rotations
+    for (int i = 0; i < 360; i++) {
+        float rotateAngle = 2 * PI * i / 360; 
+        renderer.Render(.90, rotateAngle);
     }
+
     // renderer.Render(.95);
     return 0;
 }
