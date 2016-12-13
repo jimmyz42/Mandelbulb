@@ -269,6 +269,8 @@ Fractal.h
 /Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Fractal.h
 Light.h
 /Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Light.h
+Image.h
+/Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/Image.h
 
 /Users/catheryn/Dropbox (MIT)/MIT/2016 Fall/6.837/Mandelbulb/src/SceneParser.cpp
 cstdio
